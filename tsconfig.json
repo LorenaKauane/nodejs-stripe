@@ -1,0 +1,23 @@
+{
+  "ts-node": {
+    // Do not forget to `npm i -D tsconfig-paths`
+    "require": ["tsconfig-paths/register"]
+  },
+  "compilerOptions": {
+    "outDir": "dist",
+
+    "module": "commonjs",
+    "target": "es2019",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "rootDirs": ["src", "tests"],
+    "baseUrl": "src",
+    "strict": true,
+    "lib": ["esnext"],
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "include": ["src", "tests"],
+  "exclude": []
+}
