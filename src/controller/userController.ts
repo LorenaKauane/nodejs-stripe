@@ -1,4 +1,5 @@
 import prisma from '@/configs/prisma';
+import { createStripeCustomer } from '@/utils/stripe';
 import { NextFunction, Request, Response } from 'express';
 
 class UserController {
@@ -22,7 +23,14 @@ class UserController {
   ): Promise<Response | void> {
     try {
       const body = req.body;
-      const data = await prisma.user.create({ data: body });
+      const customer = await createStripeCustomer({
+        email: body.email,
+        name: body.name,
+      });
+
+      const data = await prisma.user.create({
+        data: { ...body, stripeCustumerId: customer.id },
+      });
       return res.status(200).json(data);
     } catch (e) {
       return next(e);
